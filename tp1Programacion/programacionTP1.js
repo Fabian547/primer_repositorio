@@ -17,11 +17,11 @@ const tarea = { nombre, prioridad, categoria };
     this.reset();
 }
 
-function renderizarTarjetas() {
+function renderizarTarjetas(mostrarTareas = tareas) {
     const contenedor = document.getElementById("contenedor");
     contenedor.innerHTML = "";
 
-    tareas.forEach((tarea, index) => {
+    mostrarTareas.forEach((tarea, index) => {
       const tarjeta = document.createElement("div");
       tarjeta.className = "tarjeta";
       tarjeta.innerHTML = `
@@ -43,4 +43,14 @@ function renderizarTarjetas() {
     tareas = tareas.filter((_, i) => i !== indice);
     renderizarTarjetas();
   }
+  function filtrarCategoria() {
+    const categoriaSeleccionada = document.getElementById('filtro_categoria').value;
+  
+    const tareasFiltradas = tareas.filter(tarea => {
+      if (categoriaSeleccionada === "Todo") return true;
+      
+      return tarea.categoria === categoriaSeleccionada;
+    });
+    renderizarTarjetas(tareasFiltradas);
 
+}
